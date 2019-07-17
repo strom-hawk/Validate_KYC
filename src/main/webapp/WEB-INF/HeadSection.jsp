@@ -13,7 +13,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="row">
+<div class = "container">
+	<div class="row" style="height:30px"></div>
+	<div class="row">
     	<div class="col"><h4>Mobiquity Money</h4></div>
     	<div class="col">
     		<div align="right"><img src="/images/comviva_logo.png"/></div>
@@ -27,4 +29,3 @@
 
 </header>
 
-</header>
