@@ -13,7 +13,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<header class="">
-<h1 class="text-center"></h1>
+<div class="row">
+    	<div class="col"><h4>Mobiquity Money</h4></div>
+    	<div class="col">
+    		<div align="right"><img src="/images/comviva_logo.png"/></div>
+   		 </div>
+	</div>
+	<div class="row" style="height:10px"></div>
+</div>
+<div class="col-md-12">
+	<div style="height:50px;background-color:lightgrey"></div>
+</div>
+
+</header>
 
 </header>

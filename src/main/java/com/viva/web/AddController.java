@@ -28,11 +28,18 @@ public class AddController {
 	
      @Autowired
 
-     @RequestMapping(value= {"/","home"})
-	public String displayaddEmp()
+     @RequestMapping(value= {"/","login"})
+	public String displayLogin()
 	{
-		return "Home";
+		return "Login";
 	}
+     
+     @RequestMapping(value="add", method=RequestMethod.POST)
+ 	public String displayUserDashboard() 
+    {
+    	 return "userDashboard";
+ 			
+ 	}
 	
 
 }
