@@ -24,8 +24,14 @@
 	<div class="row" style="height:10px"></div>
 </div>
 <div class="col-md-12">
-	<div style="height:50px;background-color:lightgrey"></div>
+	<div style="height:50px;background-color:lightgrey">
+		<div align="right">
+		<div class="row" style="height:10px;"></div>
+		<c:if test="${uname.length() > 0}">
+			<p style="font-weight:bold;font-size:16px;">Welcome ${uname}</p>
+		</c:if>
+	</div>
 </div>
 
-</header>
+
 

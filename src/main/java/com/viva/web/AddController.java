@@ -27,29 +27,30 @@ public class AddController {
 		return "Login";
 	}
      
-     @RequestMapping(value="add", method=RequestMethod.POST)
- 	public String displayUserDashboard(@RequestParam("txtname") String uname,@RequestParam("txtpaswd") String pass) 
+     @RequestMapping(value="uploadkyc", method=RequestMethod.POST)
+ 	public String displayUserDashboard(@RequestParam("txtname") String uname,@RequestParam("txtpaswd") String pass,Model model) 
     {
-    	 map.put("kanika","1234");
-    	 map.put("suman","1234");
-    	 map.put("vikas","1234");
-    	 map.put("khushboo","1234");
+    	 map.put("kanika@gmail.com","1234");
+    	 map.put("suman@gmail.com","1234");
+    	 map.put("vikas@gmail.com","1234");
+    	 map.put("khushboo@gmail.com","1234");
+    	
     	 if(uname.equals("superadmin") && pass.equals("Com@123"))
     	 {
     		 return "adminDashboard";
     	 }else {
     		 if (map.containsKey(uname) && (map.get(uname)).equals(pass))  
     	        { 
+    			 model.addAttribute("uname",uname);
     			 return "userDashboard"; 
     	            
     	        }
-    		 else
-    			 return "Home";
+    		 else {
+    			 model.addAttribute("err1",1);
+    			 return "Login";
+    		 }
     	 }
-    	 
-    	 
-    	 
- 			
+    	 	
  	}
 	
 
