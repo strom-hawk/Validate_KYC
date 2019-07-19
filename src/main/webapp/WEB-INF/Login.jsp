@@ -7,7 +7,7 @@ alert("---Invalid username or password----");
 </script>
 </c:if>
 <div class="col-md-4 mx-auto">
-<form action="uploadkyc" method="post">
+<form action="dashboard" method="post">
     <div class="form-group">
         <label for="inputEmail" style="font-weight:normal;font-size:15px;">User Name</label>
         <input type="email" class="form-control" name="txtname" placeholder="User Name">
