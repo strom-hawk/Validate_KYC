@@ -19,7 +19,7 @@
  
   	function checkValue(){
   		var val = document.getElementById("txtval").value;
-  		alert(document.getElementById("inputGroupFile01").value);
+  		//alert(document.getElementById("inputGroupFile01").value);
   		 if(idtype == "Aadhar"){
 		
 			 if(!isNaN(idtype) || val.length != 12)
@@ -36,20 +36,18 @@
 				 alert("Enter correct Passport no");
 		 } 
  	} 
-  	
-  	$('#inputGroupFile01').change( function(event) {
-  		var tmppath = URL.createObjectURL(event.target.files[0]);
-  		    $("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+  	function set(){
+  		var val = document.getElementById("inputGroupFile01").value;
+  		document.getElementById("inputGroupFile01").value =val;
 
-  		    $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>["+tmppath+"]</strong>");
-  		});
-  	
+  		
+  	}
 </script>
 
 <h4 class="text-center">Upload Your KYC</h4>
 <div style="height:50px"></div>
 <div class="col-md-4 mx-auto">
-<form action="uploaded" method="post">
+<form action="uploaded" method="post" enctype="multipart/form-data">
    <div class="form-group">
         <label for="sel1">Select Type:</label>
   		<select class="form-control" id="sel1" name="txttype" onchange="getValue()" required>
@@ -64,19 +62,20 @@
         <input type="text" class="form-control" name="val" id="txtval" placeholder="Enter Value" required>
     </div>
     
-    <div class="form-group">	
-    <label for="text" style="font-weight:normal;font-size:15px;">Upload Image</label>
+    <div class="form-group">
+		 <label for="text" style="font-weight:normal;font-size:15px;">Upload Image</label>
     <div class="input-group">
   		 
  	 	<div class="custom-file">
     		<input type="file" class="custom-file-input" id="inputGroupFile01"
       		aria-describedby="inputGroupFileAddon01" name="img">
-    		<label class="custom-file-label" for="inputGroupFile01" required>Choose file</label>
+    	<label class="custom-file-label" for="inputGroupFile01" required>Choose file</label> 
+    	
  		</div>
 	</div>
 	</div>
-    
-    
+   	
+  
     <button type="submit" class="btn btn-primary" onclick="checkValue()">Upload</button> 
 </form>
 </div>
