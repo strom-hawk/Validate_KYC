@@ -14,6 +14,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
+<script>
+	/*var logout = function() {
+		$.post("/logout", function() {
+			$("#user").html('');
+			$(".unauthenticated").show();
+			$(".authenticated").hide();
+		})
+		return true;
+	}*/
+
+	
+</script>
 <body>
 <div class = "container">
 	<div class="row" style="height:30px"></div>
@@ -35,7 +47,7 @@
 
 			<div class="container authenticated">
 				<div>
-                        <a href="/logout" class="btn btn-primary">Logout</a>
+					<button onClick="logout()" class="btn btn-primary">Logout</button>
 				</div>
 			</div>
 			</div>
