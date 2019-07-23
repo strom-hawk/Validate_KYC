@@ -1,7 +1,14 @@
 package com.viva.web;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.viva.entity.Kyc;
 import com.viva.entity.PostResponse;
+import jdk.nashorn.internal.ir.ObjectNode;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -19,17 +26,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Clock;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -43,6 +57,8 @@ public class AddController {
 	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hi, Welcome to mysite");
+		model.addAttribute("user", getPrincipal());
+		userid = getPrincipal();
 		return "userDashboard";
 	}
 
@@ -97,7 +113,7 @@ public class AddController {
 		base64imageString = new String(Base64.encodeBase64(bytes));
 		System.out.println(base64imageString);
 		fileInputStreamReader.close();
-
+        System.out.println();
 		String createPostUrl = "http://localhost:8080/kyc/add";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -108,7 +124,6 @@ public class AddController {
 		personJsonObject.put("img", base64imageString);
 		personJsonObject.put("uid", userid);
 
-		// final ObjectMapper objectMapper = new ObjectMapper();
 		HttpEntity<String> request = new HttpEntity<String>(personJsonObject.toString(), headers);
 
 		PostResponse personResultAsJsonStr = restTemplate.postForObject(createPostUrl, request, PostResponse.class);
@@ -125,12 +140,52 @@ public class AddController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		String createGetUrl = "http://localhost:8080/kyc/view";
-		List<Kyc> response = restTemplate.getForObject(createGetUrl, List.class);
+		JsonNode response = restTemplate.getForObject(createGetUrl, JsonNode.class);
+		System.out.println(response);
 
-		for(Object res : response){
-			System.out.println(res);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		ObjectReader reader = mapper.readerFor(new TypeReference<List<Kyc>>() {
+		});
+		List  mapList = new ArrayList<>();
+		try {
+			List<Kyc> kycList = reader.readValue(response);
+
+			for(int i=0; i< kycList.size();i++) {
+
+				Map<String,String> map = new HashMap<String,String>();
+
+				map.put("type",kycList.get(i).getType());
+				map.put("idno",kycList.get(i).getIdno());
+
+				BASE64Decoder decoder = new BASE64Decoder();
+				byte[] decodedBytes = decoder.decodeBuffer(kycList.get(i).getImg());
+				System.out.println("Decoded upload data : " + decodedBytes.length);
+
+				BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+				System.out.println(image);
+				String uploadPath = "./src/main/resources/decode"+i+".jpg";
+				File f = new File(uploadPath);
+
+				ImageIO.write(image, "jpg", f);
+
+				map.put("img",uploadPath);
+				map.put("uid",kycList.get(i).getUid());
+				mapList.add(map);
+
+			}
+
 		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
 		model.addAttribute("showtable", 1);
+		model.addAttribute("maplist", mapList);
+
 
 		return "adminDashboard";
 	}

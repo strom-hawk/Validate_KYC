@@ -6,6 +6,7 @@ public class Kyc {
 	    String idno;
 	    String img;
 	    String uid;
+	    public Kyc(){}
 		public String getType() {
 			return type;
 		}

@@ -48,7 +48,9 @@
             document.getElementById("viewkyc").style.display="none";
             document.getElementById("viewdash").style.display="block";
 
+
         }
+
 
 
 
@@ -89,7 +91,7 @@
                         <i class="fa fa-table"></i> View Kyc
                     </a>
 
-                    <a href="#" class="nav-item nav-link" tabindex="-1">
+                    <a href="/logout" class="nav-item nav-link" tabindex="-1">
                         <i class="fa fa-sign-out"></i> Logout
                     </a>
                 </nav>
@@ -104,6 +106,7 @@
                 <h2>Welcome ${uname}</h2>
             </div>
             <c:if test="${showtable == 1}">
+
                 <div class="row" id="viewkyc">
 
                     <h5 align="center">Kyc Details</h5>
@@ -119,24 +122,14 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="list" items="${maplist}">
                         <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                            <td>john@example.com</td>
+                            <td>${list.type}</td>
+                            <td>${list.idno}</td>
+                            <td><img src="${list.img}"/></td>
+                            <td>${list.uid}</td>
                         </tr>
-                        <tr>
-                            <td>Mary</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                            <td>July</td>
-                            <td>Dooley</td>
-                            <td>july@example.com</td>
-                            <td>john@example.com</td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
