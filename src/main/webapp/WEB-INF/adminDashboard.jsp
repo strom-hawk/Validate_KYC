@@ -126,7 +126,7 @@
                         <tr>
                             <td>${list.type}</td>
                             <td>${list.idno}</td>
-                            <td><img src="${list.img}"/></td>
+                            <td><img src="/resources/comviva_logo.png"/></td>
                             <td>${list.uid}</td>
                         </tr>
                         </c:forEach>

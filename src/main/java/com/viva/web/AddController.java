@@ -99,7 +99,6 @@ public class AddController {
 	public String uploadKyc(@RequestParam("txttype") String type, @RequestParam("val") String val,
 							@RequestParam("img") MultipartFile imgFile) throws IOException {
 
-
 		String folder = "/photos/";
 		byte[] bytes = imgFile.getBytes();
 		Path path = Paths.get(folder + imgFile.getOriginalFilename());
@@ -166,11 +165,12 @@ public class AddController {
 				BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
 				System.out.println(image);
 				String uploadPath = "./src/main/resources/decode"+i+".jpg";
+				String showPath="/src/main/resources/decode"+i+".jpg";
 				File f = new File(uploadPath);
 
 				ImageIO.write(image, "jpg", f);
 
-				map.put("img",uploadPath);
+				map.put("img",showPath);
 				map.put("uid",kycList.get(i).getUid());
 				mapList.add(map);
 
