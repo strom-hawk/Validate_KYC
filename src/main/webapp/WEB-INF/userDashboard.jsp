@@ -67,8 +67,8 @@
 
 				<div class="custom-file">
 					<input type="file" class="custom-file-input" id="inputGroupFile01"
-						   aria-describedby="inputGroupFileAddon01" name="img">
-					<label class="custom-file-label" for="inputGroupFile01" required>Choose file</label>
+						   aria-describedby="inputGroupFileAddon01" name="img" required>
+					<label class="custom-file-label" for="inputGroupFile01" >Choose file</label>
 
 				</div>
 			</div>

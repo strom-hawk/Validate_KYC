@@ -13,24 +13,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-	<script>
-		window.onload = function() {
-			var login_url = 'http://localhost:8084/login';
-			var logout_url = 'http://localhost:8084/login?logout';
-			var admin_url = 'http://localhost:8084/admin';
-			if(document.URL == login_url || document.URL == logout_url){
-				document.getElementById("logout_button").style.display='none';
-			}
-			else{
-				document.getElementById("logout_button").style.display='block'
-			}
-		}
-	</script>
+
 
 </head>
 
 <body>
-<div class = "container">
+<div class = "container-fluid">
 	<div class="row" style="height:30px"></div>
 	<div class="row">
 		<div class="col"><h4>Mobiquity Money</h4></div>
@@ -40,27 +28,22 @@
 	</div>
 	<div class="row" style="height:10px"></div>
 </div>
-<div class="col-md-12">
-	<div style="height:50px;background-color:lightgrey">
-		<div align="right">
-			<div class="row" style="height:10px;">
-			<c:if test="${user.length() > 0}">
-				<p style="font-weight:bold;font-size:16px;">Welcome ${user}</p>
-			</c:if>
+<div class = "container-fluid">
+<div class="row-md-12" style="height:50px;background-color:lightgrey">
 
-			<div class="container authenticated" align="right">
-				<div>
-					<a href="/logout" class="btn btn-primary" id="logout_button" style="width: fit-content">Logout</a>
-				</div>
-			</div>
-			</div>
+		<c:if test="${user.length() > 0}">
+		<div class="col">
+				<p style="">Welcome ${user}</p>
 		</div>
-	</div>
-
+		<div class="col">
+			<a href="/logout" class="btn btn-default" id="logout_button" style="background-color: grey;">Logout</a>
+		</div>
+		</c:if>
+</div>
 </div>
 
 
-</div>
+
 
 </body>
 </html>

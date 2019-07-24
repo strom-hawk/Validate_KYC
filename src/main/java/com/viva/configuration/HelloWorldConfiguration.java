@@ -39,8 +39,6 @@ public class HelloWorldConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
 
-
-
     }
 
 

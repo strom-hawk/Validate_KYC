@@ -100,7 +100,7 @@
         </div>
 
 
-        <div class="row-md-9 mx-auto">
+        <div class="row-md-10 mx-auto">
             <div class="row" style="height:20px"></div>
             <div class="row" style="height:20px;display:none" id="viewdash">
                 <h2>Welcome ${uname}</h2>
@@ -126,7 +126,7 @@
                         <tr>
                             <td>${list.type}</td>
                             <td>${list.idno}</td>
-                            <td><img src="/resources/comviva_logo.png"/></td>
+                            <td><img src="${list.img}" style="width:100px;height:100px;"/></td>
                             <td>${list.uid}</td>
                         </tr>
                         </c:forEach>
