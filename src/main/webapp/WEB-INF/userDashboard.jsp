@@ -42,11 +42,13 @@
 	}
 </script>
 
-<h4 class="text-center">Upload Your KYC</h4>
+
 <div style="height:50px"></div>
 <div class="col-md-4 mx-auto">
 
-	<form action="user_ACK" method="post" enctype="multipart/form-data">
+	<form action="user_ACK" method="post" enctype="multipart/form-data" class="shadow p-3 mb-5 bg-white rounded">
+
+		<h4 class="text-center default-text py-3"><i class="fa fa-upload"></i> Upload KYC</h4>
 		<div class="form-group">
 			<label for="sel1">Select Type:</label>
 			<select class="form-control" id="sel1" name="txttype" onchange="getValue()" required>
@@ -74,8 +76,12 @@
 			</div>
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+		<div class="form-actions form-group  col-sm-4 mx-auto">
+			<button type="submit" class="btn btn-block btn-danger" style="background-color: #CF1F0D;color: white;opacity:.8"
+					onclick="checkValue()">Upload</button>
+		</div>
 
-		<button type="submit" class="btn btn-block btn-primary btn-default" onclick="checkValue()">Upload</button>
+
 	</form>
 </div>
 

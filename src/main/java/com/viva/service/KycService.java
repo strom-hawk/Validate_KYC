@@ -76,7 +76,7 @@ public class KycService {
 
         PostResponse personResultAsJsonStr = restTemplate.postForObject(createPostUrl, request, PostResponse.class);
 
-        System.out.println(personResultAsJsonStr.getStatus());
+
 
         return personResultAsJsonStr;
 

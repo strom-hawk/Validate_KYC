@@ -1,6 +1,7 @@
 package com.viva.web;
 
 import com.viva.entity.PostResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,15 +21,14 @@ import java.util.HashMap;
 import java.util.List;
 import com.viva.service.KycService;
 
-import static org.junit.Assert.assertNotNull;
 
 @Controller
 public class AddController {
 
+	@Autowired
+	KycService service;
 	HashMap<String, String> map = new HashMap<>();
 	String userid ="";
-	KycService service;
-
 
 	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
@@ -73,10 +73,11 @@ public class AddController {
 
 	@RequestMapping(value = {"/user_ACK"}, method = RequestMethod.POST)
 	public String uploadKyc(@RequestParam("txttype") String type, @RequestParam("val") String val,
-							@RequestParam("img") MultipartFile imgFile) throws IOException {
+							@RequestParam("img") MultipartFile imgFile,Model model) throws IOException {
 
 		PostResponse response = service.uploadKycDetailsService(type,val,imgFile,userid);
-
+		System.out.println(response.getStatus());
+		model.addAttribute("user", getPrincipal());
 		return "Upload_Kyc_Ack";
 	}
 
