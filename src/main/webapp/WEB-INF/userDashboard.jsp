@@ -5,7 +5,6 @@
 	function getValue(){
 		id = document.getElementById("sel1");
 		idtype = id.options[id.selectedIndex].value;
-
 		if(idtype == "Aadhar"){
 			document.getElementById("entrval").innerHTML = "Enter 12 digit aadhar no";
 		}
@@ -16,25 +15,37 @@
 			document.getElementById("entrval").innerHTML = "Enter 9 digit passport no";
 		}
 	}
-
 	function checkValue(){
 		var val = document.getElementById("txtval").value;
 		//alert(document.getElementById("inputGroupFile01").value);
 		if(idtype == "Aadhar"){
-
-			if(!isNaN(idtype) || val.length != 12)
-				alert("Enter correct aadhar no");
-			<c:set var="error"  value="1"/>
+			if( val.length != 12){
+				document.getElementById("errdiv").style.display = "block";
+				document.getElementById("err").innerHTML = "Please enter correct Aadhar no";
+			}
 		}
 		else if(idtype == "VoterID")
 		{
 			if(val.length != 10)
-				alert("Enter correct voter Id no");
+			{
+				document.getElementById("errdiv").style.display = "block";
+				document.getElementById("err").innerHTML = "Please enter correct VoterId no";
+			}
 		}
 		else if(idtype == "PassPort"){
-
 			if(val.length != 9)
-				alert("Enter correct Passport no");
+			{
+				document.getElementById("errdiv").style.display = "block";
+				document.getElementById("err").innerHTML = "Please enter correct Passport no";
+			}
+		}
+	}
+	function sleep(milliseconds) {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+			if ((new Date().getTime() - start) > milliseconds){
+				break;
+			}
 		}
 	}
 	function set(){
@@ -45,22 +56,26 @@
 
 
 <div style="height:50px"></div>
-<div class="col-md-4 mx-auto">
-	<c:if test="${error == 0}">
-		<c:set var="userACK"  value="user_ACK"/>
+<div class="col-md-4 mx-auto shadow p-3 mb-5 bg-white rounded">
+	<h4 class="text-center default-text py-3"><i class="fa fa-upload"></i> Upload KYC</h4>
+	<div class="alert alert-danger" style="display: none" id="errdiv">
+		<p id="err" ></p>
+
+	</div>
+	<c:if test="${error eq 0}">
+		<c:set var="userACK"  value="/user_ACK"/>
 
 	</c:if>
-	<c:if test="${error == 1}">
+	<c:if test="${error eq 1}">
 		<c:set var="userACK"  value="/home"/>
+		<script>
+			sleep(90000);
+		</script>
 
 	</c:if>
+	<p>${userACK}</p>
+	<form action="${userACK}" method="post" enctype="multipart/form-data">
 
-	<form action="${userACK}" method="post" enctype="multipart/form-data" class="shadow p-3 mb-5 bg-white rounded">
-
-		<h4 class="text-center default-text py-3"><i class="fa fa-upload"></i> Upload KYC</h4>
-		<div class="alert alert-danger">
-			<p id="err"></p>
-		</div>
 		<div class="form-group">
 			<label for="sel1">Select Type:</label>
 			<select class="form-control" id="sel1" name="txttype" onchange="getValue()" required>
@@ -95,6 +110,7 @@
 
 
 	</form>
+
 </div>
 
 </body>

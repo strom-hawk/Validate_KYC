@@ -90,10 +90,24 @@ public class AddController {
 	public String uploadKyc(@RequestParam("txttype") String type, @RequestParam("val") String val,
 							@RequestParam("img") MultipartFile imgFile,Model model) throws IOException {
 
-		PostResponse response = service.uploadKycDetailsService(type,val,imgFile,userid);
-		System.out.println(response.getStatus());
-		model.addAttribute("user", getPrincipal());
-		return "Upload_Kyc_Ack";
+		int checkConditions = 0;
+		checkConditions= service.checkKycDetailsService(type, val, userid, max_Uploads);
+		System.out.println(checkConditions);
+		if(checkConditions == 1){
+			PostResponse response = service.uploadKycDetailsService(type,val,imgFile,userid);
+			System.out.println(response.getStatus());
+			model.addAttribute("user", getPrincipal());
+			return "Upload_Kyc_Ack";
+		}
+		else {
+			System.out.println("check conditions: "+checkConditions);
+			try {
+				Thread.sleep(90000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return "redirect:/home";
+		}
 	}
 
 	@RequestMapping(value ="viewkyc")

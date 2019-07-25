@@ -35,6 +35,8 @@ import java.util.Map;
 @Service
 public class KycService {
 
+    private int count = 0;
+
     public PostResponse uploadKycDetailsService(String type, String val, MultipartFile imgFile,String userid) throws IOException {
 
         Path path1 = Paths.get("C:\\photos1");
@@ -129,6 +131,43 @@ public class KycService {
 
         return mapList;
 
+    }
+
+    public int checkKycDetailsService(String type, String value, String userID, int max_Uploads){
+
+        RestTemplate restTemplate1 = new RestTemplate();
+        String createGetUrl = "http://localhost:8080/kyc/view";
+        JsonNode response = restTemplate1.getForObject(createGetUrl, JsonNode.class);
+        System.out.println(response);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectReader reader = mapper.readerFor(new TypeReference<List<Kyc>>() {
+        });
+
+        try {
+            List<Kyc> kycList = reader.readValue(response);
+            System.out.println(kycList);
+            for(int i=0; i< kycList.size();i++) {
+
+                if(userID.equals(kycList.get(i).getUid())){
+                    count++;
+                    if(type.equals(kycList.get(i).getType()) && value.equals(kycList.get(i).getIdno())) {
+                        return 0;
+                    }
+                }
+            }
+
+            if(count > max_Uploads){
+                return 0;
+            }
+            return 1;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
 
