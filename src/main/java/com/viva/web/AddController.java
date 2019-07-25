@@ -2,6 +2,7 @@ package com.viva.web;
 
 import com.viva.entity.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,9 @@ import com.viva.service.KycService;
 @Controller
 public class AddController {
 
+	@Value("${max_Upload}")
+	private int max_Uploads;
+
 	@Autowired
 	KycService service;
 	HashMap<String, String> map = new HashMap<>();
@@ -35,6 +39,7 @@ public class AddController {
 		model.addAttribute("greeting", "Hi, Welcome to mysite");
 		model.addAttribute("user", getPrincipal());
 		userid = getPrincipal();
+		System.out.println(max_Uploads);
 		return "userDashboard";
 	}
 
@@ -44,14 +49,14 @@ public class AddController {
 		return "adminDashboard";
 	}
 
-/*	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
+	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDenied(HttpServletRequest request, HttpServletResponse response){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication != null){
 			new SecurityContextLogoutHandler().logout(request, response, authentication);
 		}
 		return "redirect:/login?logout";
-	}*/
+	}
 
 	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
 	public String loginPage() {
