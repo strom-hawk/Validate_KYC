@@ -38,7 +38,7 @@ public class AddController {
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hi, Welcome to mysite");
 		model.addAttribute("user", getPrincipal());
-		model.addAttribute("error",0);
+		//model.addAttribute("error",0);
 		userid = getPrincipal();
 		System.out.println(max_Uploads);
 		return "userDashboard";
@@ -103,7 +103,7 @@ public class AddController {
 		else {
 			System.out.println("check conditions: "+checkConditions);
 			try {
-				Thread.sleep(9000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

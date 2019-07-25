@@ -35,7 +35,7 @@ import java.util.Map;
 @Service
 public class KycService {
 
-    private int count = 0;
+    int count = 0;
 
     public PostResponse uploadKycDetailsService(String type, String val, MultipartFile imgFile,String userid) throws IOException {
 
@@ -135,6 +135,19 @@ public class KycService {
 
     public int checkKycDetailsService(String type, String value, String userID, int max_Uploads){
 
+        if(type.equals("Aadhar")){
+            if(value.length()!=12)
+                return 0;
+        }
+        else if(type.equals("VoterID")){
+            if(value.length()!=10)
+                return 0;
+
+        }
+        else if(type.equals("PassPort")){
+            if(value.length()!=9)
+                return 0;
+        }
         RestTemplate restTemplate1 = new RestTemplate();
         String createGetUrl = "http://localhost:8080/kyc/view";
         JsonNode response = restTemplate1.getForObject(createGetUrl, JsonNode.class);
@@ -147,10 +160,11 @@ public class KycService {
         });
 
         try {
+
+
             List<Kyc> kycList = reader.readValue(response);
             System.out.println(kycList);
             for(int i=0; i< kycList.size();i++) {
-
                 if(userID.equals(kycList.get(i).getUid())){
                     count++;
                     if(type.equals(kycList.get(i).getType()) && value.equals(kycList.get(i).getIdno())) {
@@ -169,5 +183,6 @@ public class KycService {
             return 0;
         }
     }
+
 }
 

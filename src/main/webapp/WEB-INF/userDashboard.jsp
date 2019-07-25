@@ -5,6 +5,7 @@
 	function getValue(){
 		id = document.getElementById("sel1");
 		idtype = id.options[id.selectedIndex].value;
+
 		if(idtype == "Aadhar"){
 			document.getElementById("entrval").innerHTML = "Enter 12 digit aadhar no";
 		}
@@ -15,39 +16,47 @@
 			document.getElementById("entrval").innerHTML = "Enter 9 digit passport no";
 		}
 	}
+
 	function checkValue(){
 		var val = document.getElementById("txtval").value;
 		//alert(document.getElementById("inputGroupFile01").value);
 		if(idtype == "Aadhar"){
+
 			if( val.length != 12){
+
+
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Aadhar no";
+
 			}
+
+
 		}
 		else if(idtype == "VoterID")
 		{
 			if(val.length != 10)
 			{
+
+
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct VoterId no";
 			}
+
 		}
 		else if(idtype == "PassPort"){
+
 			if(val.length != 9)
 			{
+
+
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Passport no";
 			}
+
+
 		}
 	}
-	function sleep(milliseconds) {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-			if ((new Date().getTime() - start) > milliseconds){
-				break;
-			}
-		}
-	}
+
 	function set(){
 		var val = document.getElementById("inputGroupFile01").value;
 		document.getElementById("inputGroupFile01").value =val;
@@ -62,19 +71,9 @@
 		<p id="err" ></p>
 
 	</div>
-	<c:if test="${error eq 0}">
-		<c:set var="userACK"  value="/user_ACK"/>
 
-	</c:if>
-	<c:if test="${error eq 1}">
-		<c:set var="userACK"  value="/home"/>
-		<script>
-			sleep(9000);
-		</script>
 
-	</c:if>
-	<p>${userACK}</p>
-	<form action="${userACK}" method="post" enctype="multipart/form-data">
+	<form action="/user_ACK" method="post" enctype="multipart/form-data">
 
 		<div class="form-group">
 			<label for="sel1">Select Type:</label>
