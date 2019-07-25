@@ -96,6 +96,7 @@ public class AddController {
 		if(checkConditions == 1){
 			PostResponse response = service.uploadKycDetailsService(type,val,imgFile,userid);
 			System.out.println(response.getStatus());
+
 			model.addAttribute("user", getPrincipal());
 			return "Upload_Kyc_Ack";
 		}
