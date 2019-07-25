@@ -24,6 +24,7 @@
 
 			if(!isNaN(idtype) || val.length != 12)
 				alert("Enter correct aadhar no");
+			<c:set var="error"  value="1"/>
 		}
 		else if(idtype == "VoterID")
 		{
@@ -45,10 +46,21 @@
 
 <div style="height:50px"></div>
 <div class="col-md-4 mx-auto">
+	<c:if test="${error == 0}">
+		<c:set var="userACK"  value="user_ACK"/>
 
-	<form action="user_ACK" method="post" enctype="multipart/form-data" class="shadow p-3 mb-5 bg-white rounded">
+	</c:if>
+	<c:if test="${error == 1}">
+		<c:set var="userACK"  value="/home"/>
+
+	</c:if>
+
+	<form action="${userACK}" method="post" enctype="multipart/form-data" class="shadow p-3 mb-5 bg-white rounded">
 
 		<h4 class="text-center default-text py-3"><i class="fa fa-upload"></i> Upload KYC</h4>
+		<div class="alert alert-danger">
+			<p id="err"></p>
+		</div>
 		<div class="form-group">
 			<label for="sel1">Select Type:</label>
 			<select class="form-control" id="sel1" name="txttype" onchange="getValue()" required>
