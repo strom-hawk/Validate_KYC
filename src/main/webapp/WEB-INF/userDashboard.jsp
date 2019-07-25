@@ -22,16 +22,11 @@
 		//alert(document.getElementById("inputGroupFile01").value);
 		if(idtype == "Aadhar"){
 
-			if(!isNaN(val) || val.length != 12){
-			<c:if test="${error == 0}">
-			<c:set var="error"  value="1"/>
-				</c:if>
+			if( val.length != 12){
+
 
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Aadhar no";
-
-
-				//setTimeout('', 100000000);
 
 			}
 
@@ -40,9 +35,8 @@
 		else if(idtype == "VoterID")
 		{
 			if(val.length != 10)
-			{<c:if test="${error == 0}">
-				<c:set var="error"  value="1"/>
-				</c:if>
+			{
+
 
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct VoterId no";
@@ -52,9 +46,8 @@
 		else if(idtype == "PassPort"){
 
 			if(val.length != 9)
-			{<c:if test="${error == 0}">
-				<c:set var="error"  value="1"/>
-				</c:if>
+			{
+
 
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Passport no";
@@ -86,16 +79,18 @@
 		<p id="err" ></p>
 
 	</div>
-	<c:if test="${error == 0}">
-		<c:set var="userACK"  value="user_ACK"/>
+	<c:if test="${error eq 0}">
+		<c:set var="userACK"  value="/user_ACK"/>
 
 	</c:if>
-	<c:if test="${error == 1}">
+	<c:if test="${error eq 1}">
 		<c:set var="userACK"  value="/home"/>
 		<script>
 			sleep(90000);
 		</script>
+
 	</c:if>
+	<p>${userACK}</p>
 	<form action="${userACK}" method="post" enctype="multipart/form-data">
 
 		<div class="form-group">
