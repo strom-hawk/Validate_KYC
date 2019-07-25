@@ -69,7 +69,7 @@
 	<c:if test="${error eq 1}">
 		<c:set var="userACK"  value="/home"/>
 		<script>
-			sleep(90000);
+			sleep(9000);
 		</script>
 
 	</c:if>

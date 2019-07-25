@@ -103,7 +103,7 @@ public class AddController {
 		else {
 			System.out.println("check conditions: "+checkConditions);
 			try {
-				Thread.sleep(90000);
+				Thread.sleep(9000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
