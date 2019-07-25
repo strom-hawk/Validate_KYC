@@ -34,10 +34,11 @@ public class AddController {
 	HashMap<String, String> map = new HashMap<>();
 	String userid ="";
 
-	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/home" }, method ={ RequestMethod.POST,RequestMethod.GET})
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hi, Welcome to mysite");
 		model.addAttribute("user", getPrincipal());
+		model.addAttribute("error",0);
 		userid = getPrincipal();
 		System.out.println(max_Uploads);
 		return "userDashboard";
