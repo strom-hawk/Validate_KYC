@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import com.viva.service.KycService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -88,19 +89,20 @@ public class AddController {
 
 	@RequestMapping(value = {"/user_ACK"}, method = RequestMethod.POST)
 	public String uploadKyc(@RequestParam("txttype") String type, @RequestParam("val") String val,
-							@RequestParam("img") MultipartFile imgFile,Model model) throws IOException {
+							@RequestParam("img") MultipartFile imgFile, Model model, RedirectAttributes rm) throws IOException {
 
 		int checkConditions = 0;
 		checkConditions= service.checkKycDetailsService(type, val, userid, max_Uploads);
 		System.out.println(checkConditions);
 		if(checkConditions == 1){
+			System.out.println("check conditions: "+checkConditions);
 			PostResponse response = service.uploadKycDetailsService(type,val,imgFile,userid);
 			System.out.println(response.getStatus());
 
 			model.addAttribute("user", getPrincipal());
 			return "Upload_Kyc_Ack";
 		}
-		else {
+		else if(checkConditions == 0){
 			System.out.println("check conditions: "+checkConditions);
 			try {
 				Thread.sleep(3000);
@@ -109,6 +111,30 @@ public class AddController {
 			}
 			return "redirect:/home";
 		}
+		else if(checkConditions == 2){
+			System.out.println("check conditions: "+checkConditions);
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			rm.addFlashAttribute("errStatus","ID Type and IDNo already exists");
+			rm.addFlashAttribute("errNo",checkConditions);
+			return "redirect:/home";
+		}
+		else if(checkConditions == 3){
+			System.out.println("check conditions: "+checkConditions);
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			rm.addFlashAttribute("errStatus","Maximum 10 uploads per user is allowed");
+			rm.addFlashAttribute("errNo",checkConditions);
+			return "redirect:/home";
+		}
+		else{return "redirect:/home";}
+
 	}
 
 	@RequestMapping(value ="viewkyc")

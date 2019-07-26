@@ -43,7 +43,7 @@ public class ServiceTest {
 				file1.getName(), "text/plain", IOUtils.toByteArray(input));
 	
 		
-		PostResponse response = service.uploadKycDetailsService("aadhar", "123456789012",multipartFile , "bill@gmail.com");
+		PostResponse response = service.uploadKycDetailsService("Aadhar", "123456789012",multipartFile , "bill@gmail.com");
 		assertEquals("success", response.getStatus());
 	}
 	@Test
@@ -51,7 +51,7 @@ public class ServiceTest {
 	//Sends 0 for incorrect details
 	public void checkKycWithWrongDetails() throws IOException {
 		
-		int result = service.checkKycDetailsService("aadhar", "123459", "bill@gmail.com",10);
+		int result = service.checkKycDetailsService("Aadhar", "123459", "bill@gmail.com",10);
 		assertEquals(0,result);
 	}
 	@Test
@@ -59,7 +59,7 @@ public class ServiceTest {
 	//Sends 1 for correct details
 	public void checkKycWithCorrectDetails() throws IOException {
 		
-		int result = service.checkKycDetailsService("aadhar", "123459987098", "bill@gmail.com",10);
+		int result = service.checkKycDetailsService("Aadhar", "123459987098", "bill@gmail.com",10);
 		assertEquals(1,result);
 	}
 	

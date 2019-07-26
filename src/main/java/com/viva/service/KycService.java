@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import sun.misc.BASE64Decoder;
 
+
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
@@ -41,7 +42,7 @@ import java.util.Map;
 @Service
 public class KycService {
 
-    int count = 0;
+
 
     public PostResponse uploadKycDetailsService(String type, String val, MultipartFile imgFile,String userid) throws IOException {
 
@@ -73,7 +74,7 @@ public class KycService {
         byte[] bytes1 = new byte[(int) file.length()];
         fileInputStreamReader.read(bytes1);
         base64imageString = new String(Base64.encodeBase64(bytes));
-        System.out.println(base64imageString);
+      //  System.out.println(base64imageString);
         fileInputStreamReader.close();
         System.out.println();
         String createPostUrl = "http://localhost:8080/kyc/add";
@@ -147,6 +148,9 @@ public class KycService {
 
     public int checkKycDetailsService(String type, String value, String userID, int max_Uploads){
 
+        int count = 0;
+
+    //for validation it will return 0
         if(type.equals("Aadhar")){
             if(value.length()!=12)
                 return 0;
@@ -154,12 +158,12 @@ public class KycService {
         else if(type.equals("VoterID")){
             if(value.length()!=10)
                 return 0;
-
         }
         else if(type.equals("PassPort")){
             if(value.length()!=9)
                 return 0;
         }
+
         RestTemplate restTemplate1 = new RestTemplate();
         String createGetUrl = "http://localhost:8080/kyc/view";
         JsonNode response = restTemplate1.getForObject(createGetUrl, JsonNode.class);
@@ -180,18 +184,24 @@ public class KycService {
                 if(userID.equals(kycList.get(i).getUid())){
                     count++;
                     if(type.equals(kycList.get(i).getType()) && value.equals(kycList.get(i).getIdno())) {
-                        return 0;
+                        //for duplicate record it will return 2
+                        return 2;
                     }
                 }
             }
+            if(count >= max_Uploads){
+                //if max_upload limit exceeds  it will return 3
+                return 3;
 
-            if(count > max_Uploads){
-                return 0;
             }
+
+
+            //for success will return 1
             return 1;
         }
         catch (IOException e) {
             e.printStackTrace();
+            //for exception will return 0
             return 0;
         }
     }

@@ -19,15 +19,15 @@
 
 	function checkValue(){
 		var val = document.getElementById("txtval").value;
+
+
 		//alert(document.getElementById("inputGroupFile01").value);
 		if(idtype == "Aadhar"){
 
 			if( val.length != 12){
 
-
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Aadhar no";
-
 			}
 
 
@@ -36,8 +36,6 @@
 		{
 			if(val.length != 10)
 			{
-
-
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct VoterId no";
 			}
@@ -47,8 +45,6 @@
 
 			if(val.length != 9)
 			{
-
-
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Passport no";
 			}
@@ -68,10 +64,15 @@
 <div class="col-md-4 mx-auto shadow p-3 mb-5 bg-white rounded">
 	<h4 class="text-center default-text py-3"><i class="fa fa-upload"></i> Upload KYC</h4>
 	<div class="alert alert-danger" style="display: none" id="errdiv">
-		<p id="err" ></p>
-
+		<p id="err" >
+		</p>
 	</div>
 
+	<c:if test="${errNo eq 2|| errNo eq 3}">
+	<div class="alert alert-danger" style="display: block" id="errdiv1">
+		<p>${errStatus}</p>
+	</div>
+	</c:if>
 
 	<form action="/user_ACK" method="post" enctype="multipart/form-data">
 
