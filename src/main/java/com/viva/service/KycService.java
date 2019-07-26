@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.viva.entity.Kyc;
 import com.viva.entity.PostResponse;
+
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -14,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -49,6 +53,11 @@ public class KycService {
                 e.printStackTrace();
             }
         }
+        
+        //******
+      
+        
+        //******
         String folder = "C:/photos1/";
         byte[] bytes = imgFile.getBytes();
         Path path = Paths.get(folder + imgFile.getOriginalFilename());
@@ -64,7 +73,7 @@ public class KycService {
         System.out.println(base64imageString);
         fileInputStreamReader.close();
         System.out.println();
-        String createPostUrl = "http://localhost:8080/kyc/add";
+        String createPostUrl = "http://localhost:8089/kyc/add";
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -87,7 +96,7 @@ public class KycService {
     public List viewKycDetailsService(){
 
         RestTemplate restTemplate = new RestTemplate();
-        String createGetUrl = "http://localhost:8080/kyc/view";
+        String createGetUrl = "http://localhost:8089/kyc/view";
         JsonNode response = restTemplate.getForObject(createGetUrl, JsonNode.class);
         System.out.println(response);
 
@@ -149,7 +158,7 @@ public class KycService {
                 return 0;
         }
         RestTemplate restTemplate1 = new RestTemplate();
-        String createGetUrl = "http://localhost:8080/kyc/view";
+        String createGetUrl = "http://localhost:8089/kyc/view";
         JsonNode response = restTemplate1.getForObject(createGetUrl, JsonNode.class);
         System.out.println(response);
 
