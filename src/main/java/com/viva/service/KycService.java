@@ -8,11 +8,13 @@ import com.viva.entity.Kyc;
 import com.viva.entity.PostResponse;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,8 +57,9 @@ public class KycService {
         }
         
         //******
-      
-        
+
+
+
         //******
         String folder = "C:/photos1/";
         byte[] bytes = imgFile.getBytes();
@@ -73,7 +76,7 @@ public class KycService {
         System.out.println(base64imageString);
         fileInputStreamReader.close();
         System.out.println();
-        String createPostUrl = "http://localhost:8089/kyc/add";
+        String createPostUrl = "http://localhost:8080/kyc/add";
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -96,7 +99,7 @@ public class KycService {
     public List viewKycDetailsService(){
 
         RestTemplate restTemplate = new RestTemplate();
-        String createGetUrl = "http://localhost:8089/kyc/view";
+        String createGetUrl = "http://localhost:8080/kyc/view";
         JsonNode response = restTemplate.getForObject(createGetUrl, JsonNode.class);
         System.out.println(response);
 
@@ -158,9 +161,9 @@ public class KycService {
                 return 0;
         }
         RestTemplate restTemplate1 = new RestTemplate();
-        String createGetUrl = "http://localhost:8089/kyc/view";
+        String createGetUrl = "http://localhost:8080/kyc/view";
         JsonNode response = restTemplate1.getForObject(createGetUrl, JsonNode.class);
-        System.out.println(response);
+      //  System.out.println(response);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -172,7 +175,7 @@ public class KycService {
 
 
             List<Kyc> kycList = reader.readValue(response);
-            System.out.println(kycList);
+           // System.out.println(kycList);
             for(int i=0; i< kycList.size();i++) {
                 if(userID.equals(kycList.get(i).getUid())){
                     count++;

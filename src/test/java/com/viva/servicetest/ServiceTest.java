@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,14 @@ public class ServiceTest {
 	@Test
 	//For Upload KYC correct AAdhar card number
 	public void shouldUploadKycWithCorrectDetails() throws IOException {
-		
-	
 
-		 	File file = new File("C:\\Users\\comviva\\Pictures\\1001.jpg");
-		    DiskFileItem fileItem = new DiskFileItem("file", "image/jpg", false, file.getName(), (int) file.length() , file.getParentFile());
-		    fileItem.getOutputStream();
-		    MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+
+
+		File file1 = new File("C:\\photos1\\1007.jpg");
+		System.out.println("FIle "+file1.getName()+"Length "+file1.length());
+		FileInputStream input = new FileInputStream(file1);
+		MultipartFile multipartFile = new MockMultipartFile("file",
+				file1.getName(), "text/plain", IOUtils.toByteArray(input));
 	
 		
 		PostResponse response = service.uploadKycDetailsService("aadhar", "123456789012",multipartFile , "bill@gmail.com");
@@ -47,15 +48,15 @@ public class ServiceTest {
 	}
 	@Test
 	//For Upload KYC wrong aadhar card number
-	//Sends 1 for incorrect details
+	//Sends 0 for incorrect details
 	public void checkKycWithWrongDetails() throws IOException {
 		
 		int result = service.checkKycDetailsService("aadhar", "123459", "bill@gmail.com",10);
-		assertEquals(1,result);
+		assertEquals(0,result);
 	}
 	@Test
 	//For Upload KYC wrong aadhar card number
-	//Sends 0 for correct details
+	//Sends 1 for correct details
 	public void checkKycWithCorrectDetails() throws IOException {
 		
 		int result = service.checkKycDetailsService("aadhar", "123459987098", "bill@gmail.com",10);
