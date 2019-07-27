@@ -151,8 +151,8 @@ public class KycService {
         int count = 0;
 
     //for validation it will return 0
-        if(type.equals("Aadhar")){
-            if(value.length()!=12)
+        if( type.equals("Aadhar")){
+            if( value.length()!=12)
                 return 0;
         }
         else if(type.equals("VoterID")){
@@ -205,6 +205,20 @@ public class KycService {
             return 0;
         }
     }
+
+  /*  public static boolean isNumeric(String str) {
+        if (str == null)
+        { return false; }
+        else {
+            int sz = str.length();
+            for(int i = 0; i < sz; ++i)
+                 {
+                     if (!Character.isDigit(str.charAt(i)))
+                            { return false; }
+                 }
+            return true;
+        }
+    }*/
 
 }
 

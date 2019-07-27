@@ -24,11 +24,15 @@
 		//alert(document.getElementById("inputGroupFile01").value);
 		if(idtype == "Aadhar"){
 
-			if( val.length != 12){
+
+
+			if(  val.length != 12){
 
 				document.getElementById("errdiv").style.display = "block";
 				document.getElementById("err").innerHTML = "Please enter correct Aadhar no";
 			}
+
+
 
 
 		}
